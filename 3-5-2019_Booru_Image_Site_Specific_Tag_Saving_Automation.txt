@@ -1,0 +1,78 @@
+*This is a planning document for code and logic programming foundation and design.
+
+## = Completed, or mostly completed
+@@@ = Working On, Currently in Progress
+___________________________________________________________________________________
+
+*I will have to have at least 3 MANUALLY entered Variables when I run this program, First will be the Site URL that will be the Tag or Artist name that I wish to save their images of, Second will be the Folder Address I want the 
+images saved to.
+
+## *Found that not all Booru sites have the same code, it is nearly the same but not exactly. The closest similarity I can take advantage of that the pictures hyper-links I want are stored under a "Thumb" div under "content" with the 
+post being identified with an "id" # with a p or s at the start of the number (that could be easily removed post process to just have the number) with this id # I can tak on whatever site beginning portion I need to get to that said 
+full image post, now I still need to figure out how to navigate and segregate different parts of the HTML DOM and div sections. Progress though, will probably have to ask the forums, or search a bunch.
+
+## *After doing more reading about HTML Code, found this format to be the default for links: <a href="url">link text</a>, the url part is what I need as my array variables, so that might be the most simple way to get that info is to 
+somehow take that URL info or "variable" from just the thumb portion of the webpages, but once again, have to figure out how to do that in the first place.
+
+*Potential Bug if it matters to me, if my program is running for a specific artist or tag, if an image gets added with that tag during the run process n# of images will be repeats and the new ones won't get added obviously.
+
+
+
+## -Put in something like "single instance force" to disallow multiple instances of program running, possibly?
+
+##-Define my manually entered variables at the beginning, one for site URL, the other for Folder Address I want pictures/files to be saved for that script run, the last being the beginning of site URL (https://e621.net).
+
+##-Create and Define ComObjects I will need to communicate and receive data and process requests from website server.
+
+## -Figure out a way to find HTML and seperate specific sections of data from the websites HTML objects and set those as necessary variables. Specifically, extract the URL from inside the <a> objects that holds the URL info for the 
+thumb-nailed images on that page. When that URL info is extracted exactly as needed to bring up said full thumb-nail page, put that URL into an Array, each different one having a seperate key (location) in the array. The difficult 
+part will be keeping this function from getting ALL <a> URL links from the page, and specifically taking the one from images I wish to save, that being all of the thumb-nail links which amount to about 60+ per page, depending.
+
+## -Once all of those URL links are put into an array, I will use that data to increment each object in the array through another function that will 1. Go to the page for said image, 2. Go to or directly save said image from its full 
+size and resolution source/page URL to the specified folder on drive, 3. Go back whatever number of times is needed to get back to origin location of URL (probably 1-2 times back at most), 4. Then finally (hopefully) Return to the 
+parent function where this was called, and increment to the next object in the array list and continue process until array is out of unique locations. 
+
+##-After array has been cycled through entirely, clear the data from that array so it can be used for the next pages.
+
+##-Find a way to increment through to the next pages of the gallery and continue the previous process, until the final page of said gallery is out of new images and end the program with a message box saying "Saving Process Complete!"
+
+##-Need to try and fix the frequent hang-ups that happen fairly often during the program running, have a few theories, but not 100% sure what causes it. Fixed hang ups.
+
+##-Should still make some sort of Auto-refresh page loop when the program does occasionally hang-up like it just did after 750 images. (Not really pretty, but hopefully it is good enough for now).
+
+##-As a part of Polish, I will probably have to add something that saves animations and gifs instead of only .png. Not sure how I will differenciate, but it would save more work over time. If solution is more difficult then expected,
+possibly make it so every time program goes to next page of gallery, make a "filler/divider" blank file to make it easier to sort through gallery afterward. Make file name something obvious and searchable for removal later. This 
+could include Webm as well, if saving them works correctly, Flash as well, if it is possible. Could possibly use a "simple" if-statement inside the main-loop just before saving the content of that URL. Can just try checking the last,
+3-4 characters of the URL link as it hold the .gif/.png/.jpg/.swf/.webm/etc. Problem with flash, does not have the "highres" part, but it is held in a .swf file. (.swf is "Shockwave Flash").
+[.gif/.jpg, .png, .jpeg/.swf, .avi, .flv, .mp4, .mpg, .mpeg, .wmv/] (THIS WAS ACTUALLY PRETTY EASY WITH AN "IF VAR IN" STATEMENT, WAS A BIT WONKY HOW IT CHECKS STRINGS THOUGH, BUT WORKED).
+
+##-For more polish, just like I did with the previous file format part. Make another if-statement that checks the "qt" variable and a second one that does a similar thing, but checks for the source-file for flash files. Have the 
+statement choice choice based on which one has a value, then go to another branch that saves that file as a .swf or whatever flash file it is, should only need an if and and else? (Said fuck it for now, not worth time for these files).
+
+##-If I wanted to do multiple things without having to re-enter the manual variables multiple times, I could have another array that is looped through but instead of a bunch of manual variables.
+
+##-The program is working and is mostly lacking major bugs atm, main thing I need to add is polish and UI elements to allow adding variable inputs and make a script instead of just the source code compiling.
+
+@@@-Still needs polishing, need to add a "GUI" instead of just fairly ugly "InputBox" Message boxes. Also should make it even more automated by having the program (or another script) make the files for the artists I am currently 
+about to save and make copy and pasting all the Dirs. less time consuming, but it works for now. After 1 run, I will make a compiled version of the script, I will still personally use the source code version to get run time info.
+
+-Add more to the script that can be used on different image sites (probably primarily Booru sites for now) make each different site a seperate method or class so running one program would allow for all these different sites to be
+accessed by the user.
+
+*I will need to learn a lot of things I never did before to make this, but it does not seem super difficult, and can most likely be used on any Booru site as they appear to have similar if not the same HTML frame-work and page set-ups.
+*If I wish to alter this program as well to work with more than just the IE browser, I probably won't have to change much syntax or even code structure to accomplish this, can probably be used on various sites and browsers.
+
+
+*Potentially Useful Things to Read on:
+## -Append: Can use to add new entries to an array, since order does not matter in this case, this should work fine.
+## -Object-based Arrays: Source = https://autohotkey.com/docs/misc/Arrays.htm#object-based ; They type of Array I will most likely be using. Initially empty syntax: Array := [] ; or Array := Array(). Write to the array: 
+-Enumerator for an array: apparently counting off one by one, which I basically want to do, sort of.
+## -I will be using a "Simple Array" instead of an "Associative" one, Simple is more simple obviously and would require less messing around.
+## -For some reason Array Keys don't start with 0, but 1 in AHK, apparently. (Wrong, this was due to Appending the first variable into the Array, basically skipping the 0 key).
+-
+
+
+
+
+
+*#* Program officially can be used to save time, I am putting this into "Buggy and needs work Beta" Phase of the program, needs a lot of bug fixing and polishing, but it actually does something useful for me, yay!
